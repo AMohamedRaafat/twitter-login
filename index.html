@@ -60,6 +60,7 @@
             var user = result.user;
             // IdP data available in result.additionalUserInfo.profile.
             // ...
+            console.log(result);
           })
           .catch((error) => {
             // Handle Errors here.
@@ -72,7 +73,7 @@
             // ...
           });
       }
-      btn.addEventListener("click", baseProvider(provider));
+      btn.addEventListener("click", () => baseProvider(provider));
       //   baseProvider();
     </script>
   </body>
