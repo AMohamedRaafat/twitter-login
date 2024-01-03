@@ -8,7 +8,8 @@
   <body>
     <h1>Hello From Twitter Login Test</h1>
     <button id="xbtn">Twitter Login</button>
-    <button id="gbtn">Google Login</button>    <div id="buttonDiv"></div>
+    <button id="gbtn">Google Login</button>
+    <div id="buttonDiv"></div>
     <script src="https://accounts.google.com/gsi/client" async></script>
 
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -47,31 +48,35 @@
       Xprovider.setCustomParameters({
         lang: "ar",
       });
-      function googleBaseProvider (){
-        firebase.auth()
-  .signInWithPopup(googleProvider)
-  .then((result) => {
-    /** @type {firebase.auth.OAuthCredential} */
-    var credential = result.credential;
+      googleProvider.addScope(
+        "https://www.googleapis.com/auth/user.phonenumbers.read"
+      );
+      function googleBaseProvider() {
+        firebase
+          .auth()
+          .signInWithPopup(googleProvider)
+          .then((result) => {
+            /** @type {firebase.auth.OAuthCredential} */
+            var credential = result.credential;
 
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    console.log(result)
-    // IdP data available in result.additionalUserInfo.profile.
-      // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-  });
-
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            console.log(result);
+            // IdP data available in result.additionalUserInfo.profile.
+            // ...
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
       }
       function XbaseProvider() {
         firebase
@@ -111,15 +116,16 @@
       }
       window.onload = function () {
         google.accounts.id.initialize({
-          client_id: "845933513694-mr3cmdc04dlhjfrrpbp8qn0d9lho8oco.apps.googleusercontent.com",
-          callback: handleCredentialResponse
+          client_id:
+            "845933513694-mr3cmdc04dlhjfrrpbp8qn0d9lho8oco.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
         });
         google.accounts.id.renderButton(
           document.getElementById("buttonDiv"),
-          { theme: "outline", size: "large" }  // customization attributes
+          { theme: "outline", size: "large" } // customization attributes
         );
         google.accounts.id.prompt(); // also display the One Tap dialog
-      }
+      };
 
       //   baseProvider();
     </script>
