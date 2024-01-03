@@ -49,7 +49,7 @@
       });
       function googleBaseProvider (){
         firebase.auth()
-  .signInWithPopup(provider)
+  .signInWithPopup(googleProvider)
   .then((result) => {
     /** @type {firebase.auth.OAuthCredential} */
     var credential = result.credential;
