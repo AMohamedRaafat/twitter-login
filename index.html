@@ -9,6 +9,7 @@
     <h1>Hello From Twitter Login Test</h1>
     <button id="xbtn">Twitter Login</button>
     <button id="gbtn">Google Login</button>
+    <button id="signOut">Sign out</button>
     <div id="buttonDiv"></div>
     <script src="https://accounts.google.com/gsi/client" async></script>
 
@@ -32,7 +33,9 @@
 
       var Xbtn = document.getElementById("xbtn");
       var Gbtn = document.getElementById("gbtn");
+      var Out = document.getElementById("signOut");
       // Import the functions you need from the SDKs you need
+
       //   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
       //   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
       // TODO: Add SDKs for Firebase products that you want to use
@@ -43,6 +46,7 @@
       // Initialize Firebase
       //   const app = initializeApp(firebaseConfig);
       //   const analytics = getAnalytics(app);
+
       var googleProvider = new firebase.auth.GoogleAuthProvider();
       var Xprovider = new firebase.auth.TwitterAuthProvider();
       Xprovider.setCustomParameters({
@@ -108,8 +112,12 @@
             // ...
           });
       }
+      function signOut() {
+        firebase.auth().signOut();
+      }
       Xbtn.addEventListener("click", XbaseProvider);
       Gbtn.addEventListener("click", googleBaseProvider);
+      Out.addEventListener("click", signOut);
       function handleCredentialResponse(response) {
         console.log("Full Response: " + response);
         console.log("Encoded JWT ID token: " + response.credential);
